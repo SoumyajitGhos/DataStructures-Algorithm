@@ -7,6 +7,11 @@ struct Node {
     int cntEndsWith = 0;
     int cntPrefix = 0;
 
+    Node() {
+        for (int i = 0; i < 26; i++) {
+            links[i] = nullptr;
+        }
+    }
     void put(char ch) {
         links[ch - 'a'] = new Node();
     }
@@ -14,9 +19,13 @@ struct Node {
     Node* get(char ch) {
         return links[ch - 'a'];
     }
+    
+    void setLinkNull(char ch) {
+        links[ch - 'a'] = nullptr;
+    }
 
     bool containsKey(char ch) {
-        return links[ch - 'a'] != NULL;
+        return links[ch - 'a'] != nullptr;
     }
 
     void increaseEndsWithCnt() {
@@ -46,7 +55,7 @@ struct Node {
     bool anyTriePresent() {
         bool isPresent = false;
         for (int i = 0; i < 26; i++) {
-            isPresent = isPresent || links[i] != NULL;
+            isPresent = isPresent || links[i] != nullptr;
         }
         return isPresent;
     }
@@ -61,7 +70,7 @@ class Trie {
             root = new Node();
         }
 
-        void insert(string word) {
+        void insert(string& word) {
             Node* node = root;
             for (int i = 0; i <= word.length(); i++) {
                 if(!node->containsKey(word[i])) node->put(word[i]);
@@ -71,7 +80,7 @@ class Trie {
             node->increaseEndsWithCnt();
         }
 
-        int countWordsEqualTo(string word) {
+        int countWordsEqualTo(string& word) {
             Node* node = root;
             for (int i = 0; i <= word.length(); i++) {
                 if(!node->containsKey(word[i])) return 0;
@@ -80,7 +89,7 @@ class Trie {
             return node->endsWithCnt();
         }
 
-        int countWordsStartingWith(string word) {
+        int countWordsStartingWith(string& word) {
             Node* node = root;
             for (int i = 0; i <= word.length(); i++) {
                 if(!node->containsKey(word[i])) node->put(word[i]);
@@ -89,7 +98,7 @@ class Trie {
             return node->prefixCnt();
         }
 
-        void erase(string word) {
+        void erase(string& word) {
             Node* node = root;
             for(int i = 0; i <= word.length(); i++) {
                 if(!node->containsKey(word[i])) return;
@@ -99,6 +108,33 @@ class Trie {
             node->deleteEnd();
             if(node->anyTriePresent()) {
                 delete node;
+            }
+        }
+
+        void erase(string& word) {
+            Node* node = root;
+            eraseRecursive(word, 0, node);
+        }
+
+        bool eraseRecursive(string word, int index, Node* node) {
+            // Base case
+            if(index == word.length()) {
+                if(node->endsWithCnt() > 0) {
+                    node->deleteEnd();
+                    node->reducePrefix();
+                    return node->prefixCnt() == 0 && !node->anyTriePresent();
+                }
+                return false;
+            }
+            char ch = word[index];
+            if(node->containsKey(ch)) {
+                Node* nextNode = node->get(ch);
+                bool shouldDeleteNextNode = eraseRecursive(word, index + 1, nextNode);
+
+                if(shouldDeleteNextNode) {
+                    delete nextNode;
+                    node->setLinkNull(ch);
+                }
             }
         }
 };
