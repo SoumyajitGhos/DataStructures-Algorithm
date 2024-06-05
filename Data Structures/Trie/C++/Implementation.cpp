@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#include<iostream>
+#include <iostream>
 using namespace std;
 
 /* Here we are considering that all the words inserted in the Trie is of small case*/
