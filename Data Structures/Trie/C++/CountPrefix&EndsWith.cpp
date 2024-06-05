@@ -98,6 +98,7 @@ class Trie {
             return node->prefixCnt();
         }
 
+        // Just Reducing the endsWith count not managing memory properly
         void erase(string& word) {
             Node* node = root;
             for(int i = 0; i <= word.length(); i++) {
@@ -111,9 +112,10 @@ class Trie {
             }
         }
 
+        // Effectively solving memory usage problem
         void erase(string& word) {
             Node* node = root;
-            eraseRecursive(word, 0, node);
+            eraseRecursive(word, 0, node); 
         }
 
         bool eraseRecursive(string word, int index, Node* node) {
