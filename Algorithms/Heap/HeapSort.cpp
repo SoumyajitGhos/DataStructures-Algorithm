@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+#include <iostream>
+using namespace std;
+
+void maxHeapify(vector<int> &heap, int currIndex, int heapSize) {
+    int largestValue = currIndex;
+    int leftChildIndex = 2*currIndex + 1;
+    int rightChildIndex = 2*currIndex + 2;
+
+    if(leftChildIndex < heapSize && heap[leftChildIndex] > heap[largestValue]) {
+        largestValue = leftChildIndex;
+    }
+    if(rightChildIndex < heapSize && heap[rightChildIndex] > heap[largestValue]) {
+        largestValue = rightChildIndex;
+    }
+    if(largestValue != currIndex) {
+        // swapping the largest value with the parent's value
+        swap(heap[currIndex], heap[largestValue]);
+
+        // heapifying the changed value node
+        maxHeapify(heap, largestValue, heapSize);
+    }
+}
+
+// Assuming the heap is a valid maxheap
+// From maxHeap we can sort the array in Asendingly
+void heapSort(vector<int> &heap) {
+    for(int i = heap.size() - 1; i > 0; i--) {
+        swap(heap[0], heap[i]);
+        // Every time the root node is heapifying but the size is changing.
+        maxHeapify(heap, 0, i);
+    }
+}
