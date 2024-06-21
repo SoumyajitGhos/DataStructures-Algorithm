@@ -16,8 +16,28 @@ void maxHeapify(vector<int> &heap, int currIndex, int heapSize) {
     if(largestValue != currIndex) {
         // swapping the largest value with the parent's value
         swap(heap[currIndex], heap[largestValue]);
-        
+
         // heapifying the changed value node
         maxHeapify(heap, largestValue, heapSize);
+    }
+}
+
+void minHeapify(vector<int> &heap, int currIndex, int heapSize) {
+    int leastValue = currIndex;
+    int leftChildIndex = 2*currIndex + 1;
+    int rightchildIndex = 2*currIndex + 2;
+
+    if(leftChildIndex < heapSize && heap[leftChildIndex] < heap[leastValue]) {
+        leastValue = leftChildIndex;
+    }
+    if(rightchildIndex < heapSize && heap[rightchildIndex] < heap[leastValue]) {
+        leastValue = rightchildIndex;
+    }
+     // swapping the least value with the parent's value
+    if(leastValue != currIndex) {
+        swap(heap[currIndex], heap[leastValue]);
+
+        // heapifying the changed value node
+        minHeapify(heap, leastValue, heapSize);
     }
 }
