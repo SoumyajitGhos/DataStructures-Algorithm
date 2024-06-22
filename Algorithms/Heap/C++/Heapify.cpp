@@ -1,7 +1,10 @@
-#include <bits/stdc++.h>
+#include "heap.h"
+#include <vector>
 #include <iostream>
 using namespace std;
 
+/* We can heapify a node only if all elements in left and right subtrees are following heap property(maxHeap or meanHeap)
+*/
 void maxHeapify(vector<int> &heap, int currIndex, int heapSize) {
     int largestValue = currIndex;
     int leftChildIndex = 2*currIndex + 1;
