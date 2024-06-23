@@ -11,4 +11,5 @@ void heapSortB(std::vector<int> &heap); // Sorting Descendingly
 
 void buildMaxHeap(std::vector<int> array);
 void buildMinHeap(std::vector<int> array);
+
 #endif // HEAP_H
