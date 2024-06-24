@@ -4,7 +4,8 @@
 #include <stdexcept>
 using namespace std;
 
-class Heap {
+/****** MaxHeap Implementation ******/
+class MaxHeap {
     private:
         int MaxHeapSize  = 1024;
         int currentHeapSize = 0;
@@ -12,7 +13,7 @@ class Heap {
 
     public:
         /* Constructor */
-        Heap() : heap(currentHeapSize) {}
+        MaxHeap() : heap(currentHeapSize) {}
 
         bool isOverflow() {
             if(currentHeapSize >= MaxHeapSize) {
@@ -31,7 +32,7 @@ class Heap {
             cout << "Heap size increased to " << currentHeapSize << endl;
         }
 
-        /*Percolate-up algorithm*/
+        /* Percolate-up algorithm */
         void percolateUp(int index) {
             while (index > 0 && heap[index] > heap[(index - 1)/2]) {
                 swap(heap[index], heap[(index - 1)/2]);
@@ -39,6 +40,7 @@ class Heap {
             }  
         }
 
+        /* This function could also be called insertKey function */
         void push(int val) {
             if (isOverflow()) return;
             int currIndex = currentHeapSize;
@@ -46,5 +48,26 @@ class Heap {
             heap[currIndex] = val;
             percolateUp(currIndex);
             currentHeapSize++;
+        }
+
+        /* For Heap, poping means poping the root node 
+           This function could also be called extractMax/extractMin function
+        */
+        int pop() {
+            if(currentHeapSize < 0) {
+                throw underflow_error("Heap size underflow: Attempt to pop element while no element is persent inside the Heap");
+                return -1;
+            }
+            int curr = 0; // The root node index
+            int popped = heap[curr];
+            heap[curr] = heap[currentHeapSize - 1]; // Copy last element to the root node
+            currentHeapSize--;
+            maxHeapify(heap, curr, currentHeapSize);
+            return popped;
+        }
+
+        void show() {
+            for(int i = 0; i < currentHeapSize; i++) cout<<heap[i] << " ";
+            cout<<endl;
         }
 };
