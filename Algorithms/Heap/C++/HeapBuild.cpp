@@ -13,12 +13,18 @@ using namespace std;
    nodes is from 0 to floor(n/2)-1 for an heap of size 'n'
 */
 
+/* TC -> O(N)
+   SC -> O(log N)
+*/
 void buildMaxHeap(vector<int> array) {
    for(int i = floor(array.size() / 2) - 1; i >= 0; i--) {
       maxHeapify(array, i, array.size());
    }
 }
 
+/* TC -> O(N)
+   SC -> O(log N)
+*/
 void buildMinHeap(vector<int> array) {
    for(int i = floor(array.size() / 2) - 1; i >= 0; i--) {
       maxHeapify(array, i, array.size());

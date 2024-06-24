@@ -3,7 +3,12 @@
 #include <iostream>
 using namespace std;
 
-/* We can heapify a node only if all elements in left and right subtrees are following heap property(maxHeap or meanHeap)
+/*** We can heapify a node only if all elements in left and right subtrees are following heap property  
+    (maxHeap or meanHeap)
+***/
+
+/*  TC -> O(log N)
+    SC -> O(log N)
 */
 void maxHeapify(vector<int> &heap, int currIndex, int heapSize) {
     int largestValue = currIndex;
@@ -25,6 +30,9 @@ void maxHeapify(vector<int> &heap, int currIndex, int heapSize) {
     }
 }
 
+/*  TC -> O(log N)
+    SC -> O(log N)
+*/
 void minHeapify(vector<int> &heap, int currIndex, int heapSize) {
     int leastValue = currIndex;
     int leftChildIndex = 2*currIndex + 1;

@@ -6,6 +6,8 @@ using namespace std;
 /*
     ## Assuming the heap is a valid maxHeap
     ## From maxHeap we can sort the array Ascendingly
+    TC -> O(N log N)
+    SC -> O(log N)
 */
 void heapSortA(vector<int> &heap) {
     for(int i = heap.size() - 1; i > 0; i--) {
@@ -18,6 +20,8 @@ void heapSortA(vector<int> &heap) {
 /*
     ## Assuming the heap is a valid minHeap
     ## From minHeap we can sort the array Descendingly
+    TC -> O(N log N)
+    SC -> O(log N)
 */
 void heapSortB(vector<int> &heap) {
     for(int i = heap.size() - 1; i > 0; i--) {

@@ -15,6 +15,9 @@ class MaxHeap {
         /* Constructor */
         MaxHeap() : heap(currentHeapSize) {}
 
+        /*  TC -> O(1)
+            SC -> O(1)
+        */
         bool isOverflow() {
             if(currentHeapSize >= MaxHeapSize) {
                 throw overflow_error("Heap size overflow: Attempt to increase heap size beyond maximum allowed limit");
@@ -23,6 +26,9 @@ class MaxHeap {
             return false;  
         }
 
+        /*  TC -> O(value)
+            SC -> O(value)
+        */
         void increaseHeapSize(int value) {
             if(currentHeapSize + value > MaxHeapSize) {
                 throw overflow_error("Heap size overflow: Attempt to increase heap size beyond maximum allowed limit");
@@ -32,7 +38,10 @@ class MaxHeap {
             cout << "Heap size increased to " << currentHeapSize << endl;
         }
 
-        /* Percolate-up algorithm */
+        /* Percolate-up algorithm 
+            TC -> O(log N)
+            SC -> O(1)
+        */
         void percolateUp(int index) {
             while (index > 0 && heap[index] > heap[(index - 1)/2]) {
                 swap(heap[index], heap[(index - 1)/2]);
@@ -40,7 +49,10 @@ class MaxHeap {
             }  
         }
 
-        /* This function could also be called insertKey function */
+        /* This function could also be called insertKey function 
+            TC -> O(log N)
+            SC -> O(1)
+        */
         void push(int val) {
             if (isOverflow()) return;
             int currIndex = currentHeapSize;
@@ -52,6 +64,8 @@ class MaxHeap {
 
         /* For Heap, poping means poping the root node 
            This function could also be called extractMax/extractMin function
+            TC -> O(log N)
+            SC -> O(log N)
         */
         int pop() {
             if(currentHeapSize < 0) {
@@ -66,25 +80,35 @@ class MaxHeap {
             return popped;
         }
 
+        /*  TC -> O(N)
+            SC -> O(1)
+        */
         void show() {
             for(int i = 0; i < currentHeapSize; i++) cout<<heap[i] << " ";
             cout<<endl;
         }
 
+        /*  TC -> O(log N)
+            SC -> O(1)
+        */
         void increaseKey(int index, int value) {
             if(heap[index] > value) {
                 throw invalid_argument("Attempt to increase the value of a node while providing smaller value");
             }
             heap[index] = value;
-            /*Since the value increase it might get upwards in the heap level*/
+            /*Since the node's value increased it might get upwards in the heap level*/
             percolateUp(index);
         }
 
+        /*  TC -> O(log N)
+            SC -> O(log N)
+        */
         void decreaseKey(int index, int value) {
             if(heap[index] < value) {
                  throw invalid_argument("Attempt to decrease the value of a node while providing bigger value");
             }
             heap[index] = value;
+            /*Since the node's value decrease it might get downwards in the heap level*/
             maxHeapify(heap, index, currentHeapSize);
         }
 };
