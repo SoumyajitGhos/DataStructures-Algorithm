@@ -70,4 +70,21 @@ class MaxHeap {
             for(int i = 0; i < currentHeapSize; i++) cout<<heap[i] << " ";
             cout<<endl;
         }
+
+        void increaseKey(int index, int value) {
+            if(heap[index] > value) {
+                throw invalid_argument("Attempt to increase the value of a node while providing smaller value");
+            }
+            heap[index] = value;
+            /*Since the value increase it might get upwards in the heap level*/
+            percolateUp(index);
+        }
+
+        void decreaseKey(int index, int value) {
+            if(heap[index] < value) {
+                 throw invalid_argument("Attempt to decrease the value of a node while providing bigger value");
+            }
+            heap[index] = value;
+            maxHeapify(heap, index, currentHeapSize);
+        }
 };
