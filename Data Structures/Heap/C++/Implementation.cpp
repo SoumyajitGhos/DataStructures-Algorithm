@@ -63,7 +63,7 @@ class MaxHeap {
         }
 
         /* For Heap, poping means poping the root node 
-           This function could also be called extractMax/extractMin function
+           This function could also be called extractMax function
             TC -> O(log N)
             SC -> O(log N)
         */
@@ -110,5 +110,13 @@ class MaxHeap {
             heap[index] = value;
             /*Since the node's value decrease it might get downwards in the heap level*/
             maxHeapify(heap, index, currentHeapSize);
+        }
+
+        /*  TC -> O(1)
+            SC -> O(1)
+        */
+        int getMax() {
+            if(currentHeapSize > 0) return heap[0];
+            return NULL;
         }
 };
