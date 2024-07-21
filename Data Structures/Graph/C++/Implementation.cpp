@@ -72,9 +72,28 @@ void storeInList() {
     }
 }
 
+void storeWeightedGraphInList() {
+    int n, m;
+    cin >> n >> m;
+    vector<pair<int, int>> adj[n]; /* If it as a 0 based indexing */
+    vector<pair<int, int>> adj[n+1]; /* If it is a 1 based indexing */
+    /*  For undirected graph we are maintaing adjacency list for the two neighbour
+        individually to depicts a bidirectional edge.
+        For directed graph we are maintaining adjacency list for only one edge 
+        then its SC -> O(m)
+    */
+    for(int i = 0; i < m; i++) {
+        int u, v, w;
+        cin >> u >> v >> w;
+        adj[u].push_back({v, w});
+        adj[v].push_back({u, w});
+    }
+}
 
 int main() {
     storeInMatrix();
+    storeWeightedGraphInMatrix();
     storeInList();
+    storeWeightedGraphInList();
     return 0;
 }
